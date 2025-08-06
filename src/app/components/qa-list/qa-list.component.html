@@ -1,0 +1,31 @@
+<div class="table-container">
+  <h3>Listado de Preguntas y Respuestas</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Pregunta</th>
+        <th>Respuesta</th>
+        <th>Categoría</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Usamos *ngFor para crear una fila <tr> por cada elemento en nuestra lista 'qas' -->
+      <tr *ngFor="let qa of qas">
+        <td>{{ qa.id }}</td>
+        <td>{{ qa.pregunta }}</td>
+        <td>{{ qa.respuesta }}</td>
+        <td>
+          <!-- Usamos una clase dinámica para colorear la categoría -->
+          <span class="category-badge category-{{ qa.categoria | lowercase }}">{{ qa.categoria }}</span>
+        </td>
+        <td class="actions">
+          <button class="btn btn-edit">Editar</button>
+          <!-- El evento (click) llama a nuestra función onDelete -->
+          <button (click)="onDelete(qa.id)" class="btn btn-delete">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

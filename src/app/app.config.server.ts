@@ -1,14 +1,13 @@
 import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
 import { provideServerRendering } from '@angular/platform-server';
-import { provideServerRouting } from '@angular/ssr';
 import { appConfig } from './app.config';
-import { serverRoutes } from './app.routes.server';
 
+// Unimos la configuración base (del cliente) con la del servidor
 const serverConfig: ApplicationConfig = {
   providers: [
-    provideServerRendering(),
-    provideServerRouting(serverRoutes)
+    provideServerRendering()
   ]
 };
 
+// Esta es la configuración final y completa que usará el servidor
 export const config = mergeApplicationConfig(appConfig, serverConfig);
