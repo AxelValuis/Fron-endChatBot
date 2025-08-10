@@ -1,0 +1,193 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 flex items-center justify-center p-4">
+  <div class="w-full max-w-7xl bg-white shadow-2xl rounded-2xl flex overflow-hidden">
+    
+    <!-- Columna Izquierda (Sección de Bienvenida) -->
+    <div class="hidden lg:flex lg:w-1/2 xl:w-5/12 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white flex-col justify-center items-center relative p-8 xl:p-12">
+      <!-- Elementos decorativos de fondo -->
+      <div class="absolute inset-0 bg-black/10"></div>
+      <div class="absolute top-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 left-10 w-24 h-24 bg-white/5 rounded-full blur-2xl"></div>
+      
+      <div class="relative z-10 flex flex-col items-center text-center max-w-md">
+        <div class="flex justify-center mb-8">
+          <img src="https://www.seal.com.pe/Style%20Library/images/logo-seal.svg" 
+               class="w-40 xl:w-48 brightness-0 invert drop-shadow-lg" 
+               alt="Logo de SEAL" />
+        </div>
+        
+        <div>
+          <h1 class="text-2xl xl:text-4xl font-extrabold leading-tight mb-6">
+            Panel de Administración
+          </h1>
+          <div class="w-16 h-1 bg-white/60 mx-auto mb-6 rounded-full"></div>
+          <p class="text-base xl:text-xl font-light leading-relaxed">
+            Gestiona la base de conocimiento de tu asistente virtual de forma rápida y sencilla.
+          </p>
+        </div>
+
+        <!-- Características del sistema -->
+        <div class="mt-12 space-y-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+              <mat-icon class="text-sm">admin_panel_settings</mat-icon>
+            </div>
+            <span class="text-sm font-medium">Administración Completa</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+              <mat-icon class="text-sm">security</mat-icon>
+            </div>
+            <span class="text-sm font-medium">Acceso Seguro</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+              <mat-icon class="text-sm">analytics</mat-icon>
+            </div>
+            <span class="text-sm font-medium">Dashboard Avanzado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna Derecha (Formulario de Login) - Ahora ocupa todo el ancho en móvil -->
+    <div class="w-full lg:w-1/2 xl:w-7/12 p-6 sm:p-8 lg:p-12 xl:p-16 flex flex-col justify-center">
+      <div class="w-full max-w-md mx-auto">
+        
+        <!-- Logo para móvil (visible solo en pantallas pequeñas) -->
+        <div class="lg:hidden text-center mb-8">
+          <img src="https://www.seal.com.pe/Style%20Library/images/logo-seal.svg" 
+               class="w-32 mx-auto mb-4" 
+               alt="Logo de SEAL" />
+          <h1 class="text-xl font-bold text-gray-900 mb-2">Panel de Administración</h1>
+        </div>
+
+        <!-- Header del formulario -->
+        <div class="text-center mb-8">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-3">
+            Iniciar Sesión
+          </h2>
+          <p class="text-gray-600 text-sm sm:text-base">
+            Ingresa tus credenciales para acceder al panel
+          </p>
+        </div>
+
+        <!-- Formulario -->
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="space-y-6">
+          
+          <!-- Campo de Correo Electrónico -->
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Correo Electrónico</mat-label>
+            <input 
+              matInput 
+              type="email" 
+              name="email" 
+              [(ngModel)]="email" 
+              required 
+              email
+              #emailInput="ngModel"
+              placeholder="admin@seal.com.pe"
+              autocomplete="email">
+            <mat-icon matSuffix class="text-gray-400">alternate_email</mat-icon>
+            <mat-error *ngIf="emailInput.invalid && emailInput.touched">
+              <span *ngIf="emailInput.errors?.['required']">El correo electrónico es requerido</span>
+              <span *ngIf="emailInput.errors?.['email']">Ingresa un correo electrónico válido</span>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Campo de Contraseña -->
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Contraseña</mat-label>
+            <input 
+              matInput 
+              [type]="hidePassword ? 'password' : 'text'" 
+              name="password" 
+              [(ngModel)]="password" 
+              required 
+              minlength="4"
+              #passwordInput="ngModel"
+              placeholder="Ingresa tu contraseña"
+              autocomplete="current-password">
+            <mat-icon 
+              matSuffix 
+              class="cursor-pointer text-gray-400 hover:text-gray-600 transition-colors"
+              (click)="togglePasswordVisibility()">
+              {{ hidePassword ? 'visibility' : 'visibility_off' }}
+            </mat-icon>
+            <mat-error *ngIf="passwordInput.invalid && passwordInput.touched">
+              <span *ngIf="passwordInput.errors?.['required']">La contraseña es requerida</span>
+              <span *ngIf="passwordInput.errors?.['minlength']">La contraseña debe tener al menos 4 caracteres</span>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Recordar sesión -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+            <mat-checkbox 
+              [(ngModel)]="rememberMe" 
+              name="rememberMe" 
+              class="text-sm">
+              Recordar sesión
+            </mat-checkbox>
+            <a href="#" 
+               class="text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium text-center sm:text-right"
+               (click)="$event.preventDefault()">
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
+
+          <!-- Mensaje de Error -->
+          <div *ngIf="errorMessage" 
+               class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start sm:items-center animate-pulse">
+            <mat-icon class="mr-3 text-red-500 flex-shrink-0 mt-0.5 sm:mt-0">error_outline</mat-icon>
+            <span class="font-medium text-sm sm:text-base">{{ errorMessage }}</span>
+          </div>
+
+          <!-- Mensaje de Éxito -->
+          <div *ngIf="successMessage" 
+               class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg flex items-start sm:items-center">
+            <mat-icon class="mr-3 text-green-500 flex-shrink-0 mt-0.5 sm:mt-0">check_circle_outline</mat-icon>
+            <span class="font-medium text-sm sm:text-base">{{ successMessage }}</span>
+          </div>
+
+          <!-- Estado de Carga -->
+          <div *ngIf="isLoading" 
+               class="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded-lg flex items-center">
+            <mat-spinner diameter="20" class="mr-3 flex-shrink-0"></mat-spinner>
+            <span class="font-medium text-sm sm:text-base">Verificando credenciales...</span>
+          </div>
+
+          <!-- Botón de Ingreso -->
+          <button 
+            mat-flat-button 
+            type="submit" 
+            class="w-full !bg-gradient-to-r !from-blue-600 !to-indigo-600 hover:!from-blue-700 hover:!to-indigo-700 !text-white !font-bold !py-3 sm:!py-4 !text-base sm:!text-lg !tracking-wide !transition-all !duration-300 !transform hover:!scale-[1.02] !shadow-lg hover:!shadow-xl !min-h-[48px]"
+            [disabled]="loginForm.invalid || isLoading">
+            <mat-icon *ngIf="!isLoading" class="mr-2">admin_panel_settings</mat-icon>
+            <mat-spinner *ngIf="isLoading" diameter="20" class="mr-2"></mat-spinner>
+            <span>
+              {{ isLoading ? 'Iniciando sesión...' : 'Acceder al Panel' }}
+            </span>
+          </button>
+
+          <!-- Información adicional -->
+          <div class="text-center mt-8 pt-6 border-t border-gray-200">
+            <p class="text-xs text-gray-500 mb-3">
+              Versión 2.0 • Panel de Administración Seguro
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4 text-xs text-gray-400">
+              <span class="flex items-center">
+                <mat-icon class="text-xs mr-1">shield</mat-icon>
+                SSL Seguro
+              </span>
+              <span class="flex items-center">
+                <mat-icon class="text-xs mr-1">verified_user</mat-icon>
+                2FA Disponible
+              </span>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
