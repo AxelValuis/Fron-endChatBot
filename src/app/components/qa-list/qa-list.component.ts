@@ -1,41 +1,81 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Qa } from '../../models/qa.model';
 import { QaService } from '../../services/qa.service';
 
+// --- IMPORTACIONES DE ANGULAR MATERIAL PARA LA TABLA ---
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 @Component({
-  selector: 'app-qa-list', // Asegúrate de que el selector sea este
+  selector: 'app-qa-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    // --- AÑADIR MÓDULOS DE LA TABLA ---
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule
+  ],
   templateUrl: './qa-list.component.html',
   styleUrls: ['./qa-list.component.css']
 })
-// Asegúrate de que el nombre de la clase sea este
-export class QaListComponent implements OnInit {
-  qas: Qa[] = [];
+export class QaListComponent implements OnInit, AfterViewInit {
+  // Columnas que se mostrarán en la tabla
+  displayedColumns: string[] = ['id', 'pregunta', 'respuesta', 'categoria', 'acciones'];
+  // Fuente de datos para la tabla
+  dataSource: MatTableDataSource<Qa>;
 
-  constructor(private qaService: QaService) {}
+  // Referencias al paginador y al ordenador de la tabla
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  // ngOnInit se ejecuta cuando el componente se inicia
+  constructor(private qaService: QaService) {
+    // Inicializamos el dataSource vacío
+    this.dataSource = new MatTableDataSource<Qa>([]);
+  }
+
   ngOnInit(): void {
     this.loadQas();
   }
 
-  // Carga los datos desde el servicio
+  // Se ejecuta después de que la vista se ha inicializado
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   loadQas(): void {
     this.qaService.getQas().subscribe(data => {
-      this.qas = data;
+      this.dataSource.data = data;
     });
   }
 
-  // Se llama al hacer clic en el botón "Eliminar"
+  // Aplica el filtro a la tabla
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   onDelete(id: number): void {
-    // Usamos confirm() para pedir una confirmación al usuario
     if (confirm('¿Estás seguro de que quieres eliminar este elemento?')) {
       this.qaService.deleteQa(id).subscribe(() => {
-        console.log(`Elemento con id ${id} eliminado.`);
-        // Volvemos a cargar la lista para que la vista se actualice
-        this.loadQas();
+        this.loadQas(); // Recargamos los datos
       });
     }
   }

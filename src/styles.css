@@ -1,1 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
+/* 1. Importamos la base, componentes y utilidades de Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  2. ¡ESTA ES LA SOLUCIÓN BASADA EN TU HALLAZGO!
+  Tailwind aplica un borde a todos los pseudo-elementos ::before y ::after.
+  Angular Material los usa dentro de sus campos de texto.
+  Esta regla resetea ese borde ("border: none") SOLO para los pseudo-elementos
+  dentro de los campos de Material, eliminando las líneas sin afectar
+  el resto de tu aplicación.
+*/
+.mat-mdc-form-field-type-mat-outline .mdc-notched-outline > *::before,
+.mat-mdc-form-field-type-mat-outline .mdc-notched-outline > *::after {
+  border: none !important;
+}
+
+*, ::before, ::after {
+  box-sizing: initial;
+  border-width: initial;
+  border-style: initial;
+  border-color: initial;
+}
+/*
+  3. Mantenemos tus reglas para el autocompletado del navegador,
+  que están correctas.
+*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #374151 !important;
+    transition: background-color 5000s ease-in-out 0s;
+    background-color: transparent !important;
+}
+
+.mat-form-field input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #374151 !important;
+    border: none !important;
+}
+
+input[autocomplete="email"]:-webkit-autofill,
+input[autocomplete="current-password"]:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #374151 !important;
+    color: #374151 !important;  
+}

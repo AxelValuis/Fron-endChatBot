@@ -13,6 +13,14 @@ export class QaService {
     { id: 2, pregunta: '¿Cuáles son los precios?', respuesta: 'Tenemos varios planes. El plan básico cuesta $10/mes y el plan premium $25/mes.', categoria: 'Ventas' },
     { id: 3, pregunta: 'Mi cuenta no funciona', respuesta: 'Lamento escuchar eso. Por favor, contacta a nuestro equipo de soporte en soporte@empresa.com.', categoria: 'Soporte' },
     { id: 4, pregunta: '¿Qué tiempo hace hoy?', respuesta: 'Soy un bot de asistencia, no puedo darte información del clima.', categoria: 'General' },
+     { id: 4, pregunta: '¿Qué tiempo hace hoy?', respuesta: 'Soy un bot de asistencia, no puedo darte información del clima.', categoria: 'General' },
+      { id: 4, pregunta: '¿Qué tiempo hace hoy?', respuesta: 'Soy un bot de asistencia, no puedo darte información del clima.', categoria: 'General' },
+       { id: 4, pregunta: '¿Qué tiempo hace hoy?', respuesta: 'Soy un bot de asistencia, no puedo darte información del clima.', categoria: 'General' },
+        { id: 4, pregunta: '¿Qué tiempo hace hoy?', respuesta: 'Soy un bot de asistencia, no puedo darte información del clima. Juan', categoria: 'General' },
+         { id: 4, pregunta: '¿Qué tiempo hace hoy?', respuesta: 'Soy un bot de asistencia, no puedo darte información del clima.', categoria: 'General' },
+          { id: 4, pregunta: '¿Qué tiempo hace hoy Axel?', respuesta: 'Soy un bot de asistencia, no puedo darte información del clima.', categoria: 'General' },
+
+          { id: 4, pregunta: '¿Qué tiempo hace hoy?', respuesta: 'Soy un bot de asistencia, no puedo darte información del clima.', categoria: 'General' },
   ];
 
   constructor() { }

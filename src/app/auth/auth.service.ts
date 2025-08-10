@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<boolean> {
-    if (password === '123456') {
+    if ( password === '123456') {
       // Solo usamos localStorage si estamos en el navegador.
       if (this.isBrowser) {
         localStorage.setItem('authToken', 'fake-token-123');
