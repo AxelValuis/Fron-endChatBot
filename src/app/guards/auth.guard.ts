@@ -9,7 +9,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (authService.isAuthenticated()) {
     return true;
   }
-
-  // Esta es la forma más segura de redirigir en un guard
+  
   return router.createUrlTree(['/login']);
 };

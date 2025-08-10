@@ -15,11 +15,11 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/home', // Aseguramos que la redirección sea explícita
+    redirectTo: '/home', 
     pathMatch: 'full'
   },
   {
-    path: '**', // Cualquier otra ruta no encontrada
-    redirectTo: '/login' // La mandamos al login
+    path: '**', 
+    redirectTo: '/login' 
   }
 ];
