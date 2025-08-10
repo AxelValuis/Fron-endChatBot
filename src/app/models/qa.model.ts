@@ -4,3 +4,5 @@ export interface Qa {
   Respuesta: string;
   Tema: string;
 }
+
+

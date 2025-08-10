@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>
+  {{ mode === 'create' ? 'Crear Pregunta' : 'Editar Pregunta' }}
+</h2>
+
+<div mat-dialog-content>
+  <form [formGroup]="form" class="form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Comentario</mat-label>
+      <input matInput formControlName="Comentario" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Respuesta</mat-label>
+      <textarea matInput formControlName="Respuesta"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Tema</mat-label>
+      <input matInput formControlName="Tema" />
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid">
+    Guardar
+  </button>
+</div>

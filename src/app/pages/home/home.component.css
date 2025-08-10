@@ -3,6 +3,7 @@
   background-color: #f0f2f5;
   min-height: 100vh;
   font-family: sans-serif;
+  
 }
 
 .home-header {
@@ -32,4 +33,34 @@ h1 {
 
 .logout-btn:hover {
   background-color: #138496;
+}
+
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Efectos hover para el botón */
+.transform {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+/* Animación del punto verde */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
 }
