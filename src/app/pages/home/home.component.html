@@ -1,42 +1,37 @@
 <div class="home-container">
-  <!-- Header/Navbar Moderno -->
-  <header class="glass-effect border-b border-blue-100 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-8 py-6">
-      <div class="flex items-center justify-between">
-        
-        <!-- Logo y Título -->
-        <div class="flex items-center space-x-6">
-          <div class="w-14 h-14 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 rounded-2xl flex items-center justify-center shadow-lg">
-            <img src="/assets/images/logo_seal2.png" 
-
-                 alt="Logo SEAL" />
-          </div>
-          <div>
-            <h1 class="text-2xl font-bold text-gray-900 mb-1">Panel de Administración del Chatbot</h1>
-            <p class="text-base text-gray-600">Sistema de gestión inteligente SEAL</p>
-          </div>
-        </div>
-        
-        <!-- Información del Sistema y Botón de Salida -->
-        <div class="flex items-center space-x-6">
-          
-          
-          <!-- Botón de Cerrar Sesión -->
-          <button (click)="logout()" 
-                  class="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800  text-white px-8 py-3 rounded-xl font-semibold hover:to-indigo-800 hover:to-indigo transition-all duration-200 shadow-xl hover:shadow-2xl transform hover:scale-105 text-base">
-            <mat-icon class="mr-3">logout</mat-icon>
-            Cerrar Sesión
-          </button>
-          
-        </div>
-      </div>
-      
-
-      
+  <!-- Header -->
+  <div class="header-wrapper">
+    <!-- Logo Desktop -->
+    <div class="w-56 hidden sm:block" (click)="redirectToHome()">
+      <img src="/assets/images/logo_seal2.png" alt="Logo SEAL completo" />
     </div>
-  </header>
+    
+    
+    <!-- Separador vertical -->
+    <div class="vertical-divider"></div>
+    
+    <!-- Descripción del sistema -->
+    <div class="system-description">
+      <p>Panel de Administración</p>
+      <p>Agente IA para Facebook</p>
+    </div>
+    
+    <!-- Sección derecha con usuario y logout -->
+    <div class="header-actions">
 
-  <main>
+      <button class="logout-btn " (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="main-content">
     <app-qa-list></app-qa-list>
-  </main>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-wrapper">
+    <span class="footer-text">Seal © 2025 </span>
+  </div>
 </div>

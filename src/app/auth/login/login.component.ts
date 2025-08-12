@@ -34,8 +34,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; /
 })
 export class LoginComponent {
   // --- Propiedades para el formulario ---
-  email = '';
-  password = '';
+  email = 'gbackus@seal.com.pe';
+  password = 'MetaAICose4l20.25';
   rememberMe = false;
 
   // --- Propiedades para la UI ---

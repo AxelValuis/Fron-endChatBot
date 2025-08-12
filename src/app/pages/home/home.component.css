@@ -1,66 +1,209 @@
+/* Container principal */
 .home-container {
-  padding: 2rem;
-  background-color: #f0f2f5;
-  min-height: 100vh;
-  font-family: sans-serif;
-  
-}
-
-.home-header {
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header wrapper */
+.header-wrapper {
+  background-color: #2056DF;
+  position: relative;
+  z-index: 49;
+  display: flex;
+  height: 96px;
+  width: 100%;
+  flex: 0 0 auto;
   align-items: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #ddd;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    padding-left: 1rem;
 }
 
-h1 {
-  color: #333;
-}
-
-.logout-btn {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 4px;
-  background-color: #17a2b8; /* Azul verdoso */
-  color: white;
-  font-size: 1rem;
-  font-weight: bold;
+/* Logo desktop - oculto en móvil */
+.logo-desktop {
+  width: 14rem; /* w-56 equivalent */
   cursor: pointer;
-  transition: background-color 0.3s;
+  display: none;
+}
+
+.logo-desktop img {
+  height: auto;
+  max-height: 60px;
+  width: auto;
+}
+
+/* Logo mobile - visible solo en móvil */
+.logo-mobile {
+  cursor: pointer;
+  display: block;
+}
+
+.logo-mobile img {
+  width: 2.5rem; /* w-10 equivalent */
+  max-width: 2.5rem; /* max-w-10 equivalent */
+  height: auto;
+}
+
+/* Separador vertical */
+.vertical-divider {
+  width: 1px;
+  height: 3.25rem; /* h-13 equivalent */
+  background-color: white;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+/* Descripción del sistema */
+.system-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0.6px;
+  line-height: 18px;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+  color: #4b5563; /* text-gray-600 */
+}
+
+.system-description p {
+  margin: 0;
+  color: white; /* Color azul SEAL */
+}
+
+/* Sección derecha con acciones */
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+/* Información del usuario */
+.user-info {
+  margin-right: 1.25rem;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #4b5563;
+  letter-spacing: 0.69px;
+}
+
+/* Botón de logout */
+.logout-btn {
+  background: white;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logout-btn:hover {
-  background-color: #138496;
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
 }
 
-
-.glass-effect {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.logout-btn mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: black;
 }
 
-/* Efectos hover para el botón */
-.transform {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+/* Contenido principal */
+.main-content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 2rem;
 }
 
-.hover\:scale-105:hover {
-  transform: scale(1.05);
+/* Footer wrapper */
+.footer-wrapper {
+  background-color: #ffffff;
+  position: relative;
+  z-index: 49;
+  display: flex;
+  height: 3.5rem; /* h-14 equivalent */
+
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-start;
+  border-top: 1px solid #e5e7eb;
+  padding-left: 2rem; /* mueve el texto a la derecha */
+
 }
 
-/* Animación del punto verde */
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
+.footer-text {
+  color: #6b7280; /* text-secondary equivalent */
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (min-width: 640px) { /* sm breakpoint */
+  .logo-desktop {
+    display: block;
   }
-  50% {
-    opacity: 0.5;
+  
+  .logo-mobile {
+    display: none;
+  }
+  
+  
+  .vertical-divider {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+  
+  .system-description {
+    font-size: 1.25rem; /* text-xl */
+  }
+  
+  .user-name {
+    font-size: 1.25rem;
+  }
+  
+  .user-info {
+    margin-right: 1.25rem;
   }
 }
 
-.animate-pulse {
-  animation: pulse 2s infinite;
+
+
+/* Efectos adicionales */
+.logo-desktop:hover,
+.logo-mobile:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+/* Focus states para accesibilidad */
+.logout-btn:focus {
+  outline: 2px solid #3b82f6bla;
+  outline-offset: 2px;
+}
+
+.logo-desktop:focus,
+.logo-mobile:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Animación suave para el botón de logout */
+.logout-btn:active {
+  transform: translateY(0);
 }

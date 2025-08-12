@@ -40,6 +40,9 @@ export class QaFormDialogComponent {
       Respuesta: [data.qa?.Respuesta || '', Validators.required],
       Tema: [data.qa?.Tema || '', Validators.required]
     });
+
+    // Configurar estilos personalizados para el dialog
+    this.dialogRef.addPanelClass('custom-dialog-container');
   }
 
   save(): void {

@@ -108,17 +108,7 @@ openCreateDialog() {
   }
 
 
-  getCategoryIcon(categoria: string): string {
-  const icons: { [key: string]: string } = {
-    'Saludos': 'waving_hand',
-    'Ventas': 'shopping_cart',
-    'Soporte': 'support_agent',
-    'Productos': 'inventory',
-    'Reclamos': 'report_problem',
-    'General': 'help'
-  };
-  return icons[categoria] || 'help';
-}
+
 
 get totalQuestions() {
   return this.dataSource?.data?.length || 0;

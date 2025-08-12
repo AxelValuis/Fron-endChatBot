@@ -17,7 +17,7 @@
 }
 
 *, ::before, ::after {
-  box-sizing: initial;
+
   border-width: initial;
   border-style: initial;
   border-color: initial;
@@ -48,4 +48,73 @@ input[autocomplete="current-password"]:-webkit-autofill {
     box-shadow: 0 0 0 30px white inset !important;
     -webkit-text-fill-color: #374151 !important;
     color: #374151 !important;  
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+
+/* Estilos globales para el dialog de eliminación personalizado */
+.custom-delete-dialog-container .mat-mdc-dialog-container {
+  padding: 0 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  box-shadow: 0 20px 60px rgba(220, 38, 38, 0.3) !important;
+}
+
+.custom-delete-dialog-container .mat-mdc-dialog-content {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-height: none !important;
+}
+
+.custom-delete-dialog-container .mat-mdc-dialog-title {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.custom-delete-dialog-container .mat-mdc-dialog-actions {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: auto !important;
+}
+
+/* Backdrop personalizado para dialog de eliminación */
+.custom-delete-dialog-container + .cdk-overlay-backdrop {
+  background: rgba(127, 29, 29, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+/* Estilos globales para el dialog personalizado */
+.custom-dialog-container .mat-mdc-dialog-container {
+  padding: 0 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  box-shadow: 0 20px 60px rgba(30, 64, 175, 0.3) !important;
+}
+
+.custom-dialog-container .mat-mdc-dialog-content {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-height: none !important;
+}
+
+.custom-dialog-container .mat-mdc-dialog-title {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.custom-dialog-container .mat-mdc-dialog-actions {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: auto !important;
+}
+
+/* Backdrop personalizado */
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
 }

@@ -98,21 +98,6 @@
             </mat-error>
           </mat-form-field>
 
-          <!-- Recordar sesión -->
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-            <mat-checkbox 
-              [(ngModel)]="rememberMe" 
-              name="rememberMe" 
-              class="text-sm">
-              Recordar sesión
-            </mat-checkbox>
-            <a href="#" 
-               class="text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium text-center sm:text-right"
-               (click)="$event.preventDefault()">
-              ¿Olvidaste tu contraseña?
-            </a>
-          </div>
-
           <!-- Mensaje de Error -->
           <div *ngIf="errorMessage" 
                class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start sm:items-center animate-pulse">

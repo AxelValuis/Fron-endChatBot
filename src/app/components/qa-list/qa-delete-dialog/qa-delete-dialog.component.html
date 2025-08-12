@@ -1,9 +1,23 @@
-<h1 mat-dialog-title>Confirmar eliminación</h1>
-<div mat-dialog-content>
-  ¿Estás seguro que quieres eliminar este registro?
-
-</div>
-<div class="mat-dialog-actions">
-  <button mat-button (click)="onCancel()">Cancelar</button>
-  <button mat-button color="warn" (click)="onConfirm()">Eliminar</button>
+<div class="dialog-container">
+  <h1 mat-dialog-title class="dialog-header">
+    <div class="warning-icon">⚠️</div>
+    Confirmar eliminación
+  </h1>
+  
+  <div mat-dialog-content class="dialog-content">
+    <p class="confirmation-message">
+      ¿Estás seguro que quieres eliminar este registro?
+      <br><br>
+      <span class="highlight-text">Esta acción no se puede deshacer.</span>
+    </p>
+  </div>
+  
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-button class="cancel-button" (click)="onCancel()">
+      Cancelar
+    </button>
+    <button mat-button class="delete-button" (click)="onConfirm()">
+      Eliminar
+    </button>
+  </div>
 </div>

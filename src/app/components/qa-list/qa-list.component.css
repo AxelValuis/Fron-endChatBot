@@ -1,9 +1,18 @@
  /* Mejoras para la tabla Material */
   .mat-mdc-table {
     border-radius: 12px;
-    overflow: hidden;
-  }
 
+  }
+td.mat-column-respuesta,
+th.mat-column-respuesta {
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+
+/* Darle más espacio */
+.mat-mdc-table {
+  table-layout: auto !important;
+}
   .mat-mdc-header-row {
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
     border-bottom: 2px solid #e2e8f0;

@@ -1,29 +1,37 @@
-<h2 mat-dialog-title>
-  {{ mode === 'create' ? 'Crear Pregunta' : 'Editar Pregunta' }}
-</h2>
+<div class="dialog-container">
+  <h2 mat-dialog-title class="dialog-header">
+    {{ mode === 'create' ? 'Crear Pregunta' : 'Editar Pregunta' }}
+  </h2>
 
-<div mat-dialog-content>
-  <form [formGroup]="form" class="form-container">
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Comentario</mat-label>
-      <input matInput formControlName="Comentario" />
-    </mat-form-field>
+  <div mat-dialog-content class="dialog-content">
+    <form [formGroup]="form" class="form-container">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Comentario</mat-label>
+        <input matInput formControlName="Comentario" placeholder="Ingrese el comentario" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Respuesta</mat-label>
-      <textarea matInput formControlName="Respuesta"></textarea>
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Respuesta</mat-label>
+        <textarea matInput formControlName="Respuesta" placeholder="Ingrese la respuesta detallada"></textarea>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Tema</mat-label>
-      <input matInput formControlName="Tema" />
-    </mat-form-field>
-  </form>
-</div>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tema</mat-label>
+        <input matInput formControlName="Tema" placeholder="Ingrese el tema" />
+      </mat-form-field>
+    </form>
+  </div>
 
-<div mat-dialog-actions align="end">
-  <button mat-button (click)="dialogRef.close()">Cancelar</button>
-  <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid">
-    Guardar
-  </button>
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-button class="cancel-button" (click)="dialogRef.close()">
+      Cancelar
+    </button>
+    <button 
+      mat-raised-button 
+      class="save-button" 
+      (click)="save()" 
+      [disabled]="form.invalid">
+      {{ mode === 'create' ? 'Crear' : 'Guardar' }}
+    </button>
+  </div>
 </div>
