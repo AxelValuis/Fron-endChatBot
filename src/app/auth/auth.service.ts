@@ -1,14 +1,17 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+// Asegúrate de que ambas interfaces estén importadas
+import { LoginResponse, ChangePasswordPayload } from '../models/auth.models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8000/login';
+  // Es mejor tener la URL base y construir las rutas completas en cada método
+  private apiUrl = 'http://localhost:8000'; 
   private isBrowser: boolean;
 
   constructor(
@@ -19,21 +22,21 @@ export class AuthService {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
-  login(email: string, password: string): Observable<boolean> {
-    return this.http.post<{ id: number, user: string }>(this.apiUrl, { user: email, password })
-      .pipe(
-        map(response => {
-          if (response && response.user) {
-            if (this.isBrowser) {
-              // Guardamos algo como token, aunque ahora sea simulado
-              localStorage.setItem('authToken', 'fake-token-123');
-              localStorage.setItem('userEmail', response.user);
-            }
-            return true;
-          }
-          return false;
-        })
-      );
+  /**
+   * Realiza el login y devuelve el token de acceso.
+   */
+  login(email: string, password: string): Observable<LoginResponse> {
+    const body = { user: email, password };
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body);
+  }
+
+  /**
+   * ---- AÑADE ESTE MÉTODO ----
+   * Envía la petición para cambiar la contraseña del usuario.
+   */
+  changePassword(data: ChangePasswordPayload): Observable<any> {
+    // La respuesta exitosa puede ser un objeto como { message: '...' }
+    return this.http.post<any>(`${this.apiUrl}/login/change-password`, data);
   }
 
   logout(): void {

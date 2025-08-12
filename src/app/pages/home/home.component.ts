@@ -8,6 +8,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ChangePasswordComponent } from '../../pages/change-password/change-password.component';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatToolbarModule,
     MatListModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
@@ -29,17 +32,19 @@ export class HomeComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   logout(): void {
     this.authService.logout();
   }
     
+openChangePasswordPage(): void {
+  this.router.navigate(['change-password']);
+}
+
   redirectToHome(): void {
-    // Redirigir al home o recargar la página actual
     this.router.navigate(['/']);
-    // Alternativamente, si quieres recargar la página actual:
-    // window.location.reload();
   }
 }

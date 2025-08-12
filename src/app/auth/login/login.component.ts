@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox'; // Para "Recordar sesión"
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // Para el estado de carga
+import { LoginResponse } from '../../models/auth.models';
 
 @Component({
   selector: 'app-login',
@@ -55,33 +56,37 @@ export class LoginComponent {
   }
 
   // --- Función principal de envío del formulario ---
-  onSubmit(): void {
-    // Reseteamos los mensajes y activamos el estado de carga
+onSubmit(): void {
     this.errorMessage = '';
     this.successMessage = '';
     this.isLoading = true;
 
-    this.authService.login(this.email, this.password)
-      .pipe(delay(1000)) // Simula una pequeña demora de la red
-      .subscribe({
-        next: (success) => {
-          this.isLoading = false;
-          if (success) {
-            this.successMessage = '¡Éxito! Redirigiendo al panel...';
-            // Esperamos un momento para que el usuario vea el mensaje de éxito
-            setTimeout(() => {
-              this.router.navigate(['/home']);
-            }, 1500);
-          } else {
-            this.errorMessage = 'Credenciales incorrectas. Por favor, verifica tus datos.';
-          }
-        },
-        error: (err) => {
-          // Manejo de errores si el servicio fallara
-          this.isLoading = false;
+    this.authService.login(this.email, this.password).subscribe({
+      // El parámetro 'response' ahora es del tipo LoginResponse
+      next: (response: LoginResponse) => {
+        this.isLoading = false;
+
+        // 2. Guardamos el TOKEN REAL que viene del API
+        localStorage.setItem('authToken', response.access_token);
+        
+        // 3. Guardamos el email que se usó para el login
+        localStorage.setItem('userEmail', this.email);
+
+        this.successMessage = '¡Éxito! Redirigiendo al panel...';
+        
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 1500);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        if (err.status === 400 || err.status === 401) {
+          this.errorMessage = 'Credenciales incorrectas. Por favor, verifica tus datos.';
+        } else {
           this.errorMessage = 'Ocurrió un error inesperado. Inténtalo más tarde.';
-          console.error(err);
         }
-      });
+        console.error(err);
+      }
+    });
   }
 }
