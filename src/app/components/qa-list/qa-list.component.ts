@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Qa } from '../../models/qa.model';
 import { QaService } from '../../services/qa.service';
@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { QaDeleteDialogComponent } from './qa-delete-dialog/qa-delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { QaFormDialogComponent } from './qa-form-dialog/qa-form-dialog.component';
+import { NgxToastrService } from '../../services/ngx-toastr.service';
 interface QaMapped {
   id: number;
   pregunta: string;
@@ -43,6 +44,8 @@ export class QaListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'pregunta', 'respuesta', 'categoria', 'acciones'];
   dataSource = new MatTableDataSource<QaMapped>();
 
+    private toastr = inject(NgxToastrService);
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -69,20 +72,31 @@ export class QaListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onDelete(id: number) {
-    const dialogRef = this.dialog.open(QaDeleteDialogComponent, {
-      width: '500px',
-      data: { id }
-    });
+onDelete(id: number) {
+  const dialogRef = this.dialog.open(QaDeleteDialogComponent, {
+    width: '500px',
+    data: { id }
+  });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.qaService.delete(id).subscribe(() => {
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this.qaService.delete(id).subscribe({
+        next: () => {
+          // 1. Muestra la notificación de éxito
+          this.toastr.showSuccess('El registro se eliminó permanentemente.', '¡Eliminado!');
+          
+          // Actualiza la tabla
           this.dataSource.data = this.dataSource.data.filter(item => item.id !== id);
-        });
-      }
-    });
-  }
+        },
+        error: err => {
+          // 2. Muestra la notificación de error
+          this.toastr.showError('No se pudo eliminar el registro.', 'Error');
+          console.error('Error al eliminar:', err);
+        }
+      });
+    }
+  });
+}
 
 openCreateDialog() {
     const dialogRef = this.dialog.open(QaFormDialogComponent, {
@@ -92,16 +106,27 @@ openCreateDialog() {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.qaService.create(result).subscribe(newQa => {
-          this.dataSource.data = [
-            ...this.dataSource.data,
-            {
-              id: newQa.ID,
-              pregunta: newQa.Comentario,
-              respuesta: newQa.Respuesta,
-              categoria: newQa.Tema
-            }
-          ];
+        this.qaService.create(result).subscribe({
+          next: newQa => {
+            // 2. Muestra la notificación de éxito
+            this.toastr.showSuccess('El registro se creó exitosamente.', '¡Éxito!');
+            
+            // Actualizas la tabla
+            this.dataSource.data = [
+              ...this.dataSource.data,
+              {
+                id: newQa.ID,
+                pregunta: newQa.Comentario,
+                respuesta: newQa.Respuesta,
+                categoria: newQa.Tema
+              }
+            ];
+          },
+          error: err => {
+            // 3. (Opcional pero recomendado) Maneja el error
+            this.toastr.showError('No se pudo crear el registro.', 'Error');
+            console.error('Error al crear:', err);
+          }
         });
       }
     });
@@ -123,18 +148,22 @@ get totalCategories() {
   this.applyFilter({ target: { value: '' } } as any);
 }
 
-  onEdit(id: number, pregunta: string, respuesta: string, categoria: string) {
-    const dialogRef = this.dialog.open(QaFormDialogComponent, {
-      width: '500px',
-      data: {
-        mode: 'edit',
-        qa: { ID: id, Comentario: pregunta, Respuesta: respuesta, Tema: categoria }
-      }
-    });
+onEdit(id: number, pregunta: string, respuesta: string, categoria: string) {
+  const dialogRef = this.dialog.open(QaFormDialogComponent, {
+    width: '500px',
+    data: {
+      mode: 'edit',
+      qa: { ID: id, Comentario: pregunta, Respuesta: respuesta, Tema: categoria }
+    }
+  });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.qaService.update(result.ID, result).subscribe(updatedQa => {
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this.qaService.update(result.ID, result).subscribe({
+        next: updatedQa => {
+          // 1. Muestra la notificación de éxito
+          this.toastr.showSuccess('El registro se actualizó correctamente.', '¡Actualizado!');
+          
           const index = this.dataSource.data.findIndex(q => q.id === result.ID);
           if (index > -1) {
             this.dataSource.data[index] = {
@@ -145,8 +174,9 @@ get totalCategories() {
             };
             this.dataSource._updateChangeSubscription();
           }
-        });
-      }
-    });
-  }
+        },
+      });
+    }
+  });
+}
 }

@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../auth/auth.service';
 import { ChangePasswordPayload } from '../../models/auth.models';
 import { Router } from '@angular/router';
+import { NgxToastrService } from '../../services/ngx-toastr.service';
+
 
 
 @Component({
@@ -36,6 +38,8 @@ export class ChangePasswordComponent implements OnInit {
   
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+
+    private toastr = inject(NgxToastrService);
 
   constructor(
     private router: Router
@@ -87,14 +91,14 @@ export class ChangePasswordComponent implements OnInit {
     this.authService.changePassword(payload).subscribe({
       next: (response: any) => { // Puedes usar un tipo más específico si lo tienes
         console.log('Respuesta del servidor:', response);
-        alert('¡Contraseña cambiada con éxito!');
+        this.toastr.showSuccess('¡Contraseña cambiada con éxito!', 'Éxito');
         this.form.reset();
       },
       error: (err: HttpErrorResponse) => {
         console.error('Error al cambiar la contraseña:', err);
-        // TypeScript ahora sabe qué es err.error
         const detail = err.error?.detail || 'Ocurrió un error inesperado.';
-        alert(`Error: ${detail}`);
+        // --- REEMPLAZA ALERT POR TOASTR.SHOWERROR ---
+        this.toastr.showError(detail, 'Error');
       }
     });
   }

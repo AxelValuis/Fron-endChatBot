@@ -98,7 +98,6 @@
 /* Botón de logout */
 .logout-btn {
   background: white;
-  color: white;
   border: none;
   border-radius: 8px;
   padding: 0.75rem;
@@ -108,12 +107,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-color: black; /* text-blue-700 equivalent */
 }
 
 .logout-btn:hover {
   background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+  text-color: black; 
 }
 
 .logout-btn mat-icon {
@@ -121,6 +122,7 @@
   width: 20px;
   height: 20px;
   color: black;
+    text-color: black; 
 }
 
 /* Contenido principal */
@@ -206,4 +208,5 @@
 /* Animación suave para el botón de logout */
 .logout-btn:active {
   transform: translateY(0);
+    text-color: black; 
 }
