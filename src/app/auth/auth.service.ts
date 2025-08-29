@@ -5,13 +5,14 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 // Asegúrate de que ambas interfaces estén importadas
 import { LoginResponse, ChangePasswordPayload } from '../models/auth.models';
+import { environment } from '../../environments/environment'; // <-- 1. IMPORTA EL ENTORNO
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // Es mejor tener la URL base y construir las rutas completas en cada método
-  private apiUrl = 'http://localhost:8000'; 
+  // 2. USA LA VARIABLE DEL ENTORNO
+  private apiUrl = environment.apiUrl;
   private isBrowser: boolean;
 
   constructor(
